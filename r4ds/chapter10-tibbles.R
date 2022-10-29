@@ -31,3 +31,26 @@ tibble(
   d = runif(1e3),
   e = sample(letters, 1e3, replace = TRUE)
 )
+
+nycflights13::flights %>% 
+  print(n = 10, width = Inf)
+
+nycflights13::flights %>% 
+  View()
+
+df <- tibble(
+  x = runif(5),
+  y = rnorm(5)
+  )
+
+# extract by name
+df$x
+df[["x"]]
+
+# extract by position
+df[[1]]
+
+df %>% .$x
+df %>%  .[["x"]]
+
+class(as.data.frame(tb))
