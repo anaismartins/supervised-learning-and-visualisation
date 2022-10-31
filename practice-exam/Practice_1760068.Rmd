@@ -1,0 +1,17 @@
+---
+title: "Practice"
+author: "1760068 Ana Martins"
+date: "2022-10-31"
+output: html_document
+---
+
+## Q1
+
+a) aesthetics: x is mapped to Hgt, y is mapped to Age, fill is mapped to Diff.
+  geoms: geom_bar is used.
+  scales: x and y binned.
+  facets: none.
+  
+b) aesthetics: x is mapped to age, y is mapped to density and fill is mapped to area. the line color is black and alpha is set to lower than 1.
+  geoms: geom_line().
+  scales: continuous for both.
