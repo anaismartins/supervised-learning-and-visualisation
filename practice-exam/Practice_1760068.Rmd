@@ -15,3 +15,62 @@ a) aesthetics: x is mapped to Hgt, y is mapped to Age, fill is mapped to Diff.
 b) aesthetics: x is mapped to age, y is mapped to density and fill is mapped to area. the line color is black and alpha is set to lower than 1.
   geoms: geom_line().
   scales: continuous for both.
+  facets: none.
+  
+## Q2
+
+The data points seem randomly placed vertically. You can see the horizontal axis is the percentage, but there is no indicated vertical axis, so it makes no sense to see what happens in Asia for example, around the median, where the points are all together at some points and all apart at others. The labels seem random too, as only some countries are labeled, as if only ones that were labeled were the ones that had space for it. A better way to display this information would be, for example, to draw a histogram for each regional cluster and overlaying them with different colors and a low alpha. The current graoh does not work based on alignment, as the positioning does not make sense and on orientation, because it spreads out in a way that is hard to read and understand.
+
+## Q3 **Energy prediction** You work for an energy company. From the cool smart energy meters in every customer’s home you can collect features, measured on 15 minute intervals. Your goal is to predict whether the energy usage is over their prepayment or under (i.e. too much used or too little used. You have a hand-coded label for each row in the data. Your dataset has 5000 columns and 2000 rows
+
+a) You want to perform logistic regression but it does not work when you have more columns than
+rows. What would your strategy be? Be specific about the steps you would take!
+
+From what I understand, our data looks something like this:
+
+Step1   | Step2   | ... | Step5000
+Values1 | Values2 | ... | Values5000
+
+With ValuesN being a vector with 2000 elements. Here, we should actually be looking at the data the other way round. The logs should be coming in to new rows, not columns, so we would have to transpose the current data.
+
+b) From your logistic regression model, you obtain the confusion matrix below. What is the
+accuracy? Is this high compared to the baseline accuracy?
+
+Accuracy is (TP + TN) / (P + N) = (1752 + 74) / (1752 + 26 + 148 + 74) = 91.3%
+
+Over has more so using baseline we would have
+
+          true
+predicted over under
+over      1900 100
+under     0    0
+
+So the baseline accuracy is (1900) / (1900 + 100) = 95%
+
+The baseline accuracy is higher than the accuracy from our model.
+
+```{r}
+library(DAAG)
+library(glmnet)
+set.seed(25)
+```
+
+## Q5
+
+a) In the data set head.injury (from package DAAG), obtain a logistic regression model relating
+clinically.important.brain.injury to all the other variables.
+
+```{r}
+data <- headInjury
+lr_mod <- glm(clinically.important.brain.injury ~ ., data = headInjury)
+```
+
+b) Patients whose risk is sufficiently high will be sent for CT (computed tomography). Using a
+risk threshold of 0.025 (2.5%), turn the result into a decision rule for use of CT and indicate three
+different scenarios that would satisfy the threshold.
+
+```{r}
+lr_pred <- predict(lr_mod, type = "response")
+lr_pred
+```
+
