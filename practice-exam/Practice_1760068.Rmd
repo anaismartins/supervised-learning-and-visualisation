@@ -52,7 +52,7 @@ The baseline accuracy is higher than the accuracy from our model.
 ```{r}
 library(DAAG)
 library(glmnet)
-set.seed(25)
+set.seed(45)
 ```
 
 ## Q5
