@@ -52,6 +52,7 @@ The baseline accuracy is higher than the accuracy from our model.
 ```{r}
 library(DAAG)
 library(glmnet)
+library(tidyverse)
 set.seed(45)
 ```
 
@@ -61,16 +62,25 @@ a) In the data set head.injury (from package DAAG), obtain a logistic regression
 clinically.important.brain.injury to all the other variables.
 
 ```{r}
-data <- headInjury
-lr_mod <- glm(clinically.important.brain.injury ~ ., data = headInjury)
+lr_mod <- glm(formula = clinically.important.brain.injury ~ ., data = headInjury, family = binomial(link = "logit"))
 ```
 
 b) Patients whose risk is sufficiently high will be sent for CT (computed tomography). Using a
 risk threshold of 0.025 (2.5%), turn the result into a decision rule for use of CT and indicate three
-different scenarios that would satisfy the threshold.
+different scenarios that would satisfy the threshold. - NOT FINISHED
 
 ```{r}
-lr_pred <- predict(lr_mod, type = "response")
-lr_pred
+threshold = 0.025
+lr_pred <- predict(lr_mod)
+
+data <-
+  headInjury %>% 
+  mutate(prediction = lr_pred) %>% 
+  mutate(ct = ifelse(lr_pred < log(threshold/(1-threshold)), 0, 1))
+
+caret::confusionMatrix(data = data$prediction, reference = data$clinically.important.brain.injury)
 ```
 
+Three example scenarios that satisfy the threshold:
+- The patient does not have any of the symptons except having the Glasgow Coma Scale at 15 after 2 hours.
+- 
