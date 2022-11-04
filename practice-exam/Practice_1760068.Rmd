@@ -78,9 +78,37 @@ data <-
   mutate(prediction = lr_pred) %>% 
   mutate(ct = ifelse(lr_pred < log(threshold/(1-threshold)), 0, 1))
 
-caret::confusionMatrix(data = data$prediction, reference = data$clinically.important.brain.injury)
+table(true = data$ct, pred = data$clinically.important.brain.injury)
 ```
 
 Three example scenarios that satisfy the threshold:
-- The patient does not have any of the symptons except having the Glasgow Coma Scale at 15 after 2 hours.
-- 
+- The patient does not have any of the symptoms except having the Glasgow Coma Scale at 15 after 2 hours.
+- The patient does not have any of the symptoms exccept being over 65 and being high risk.
+- The patient does not have any of the symptoms excepthaving had amnesia before and loss of counsciousness.
+
+## Q6 LASSO
+
+In this question, the goal is to predict y from x.
+
+a) Load the workspace data.Rdata and show an informative plot of the y and x space.
+
+```{r}
+load("data.Rdata")
+```
+
+```{r}
+examdata <-
+  as_tibble(examdata) %>%
+  mutate(X = x, Y = y) %>%
+  select(-x,-y)
+```
+
+```{r}
+add_data <- function(plot){
+  plot + 
+}
+
+ggplot(data = examdata) +
+  geom_histogram(mapping = aes())
+```
+
