@@ -98,17 +98,74 @@ load("data.Rdata")
 
 ```{r}
 examdata <-
-  as_tibble(examdata) %>%
-  mutate(X = x, Y = y) %>%
-  select(-x,-y)
+  as_tibble(examdata) 
+
+newdata <-
+  examdata %>%
+  mutate(
+    x1 = x[, 1],
+    x2 = x[, 2],
+    x3 = x[, 3],
+    x4 = x[, 4],
+    x5 = x[, 5],
+    x6 = x[, 6],
+    x7 = x[, 7],
+    x8 = x[, 8],
+    x9 = x[, 9],
+    x10 = x[, 10],
+    x11 = x[, 11],
+    x12 = x[, 12],
+    x13 = x[, 13],
+    x14 = x[, 14],
+    x15 = x[, 15],
+    x16 = x[, 16],
+    x17 = x[, 17],
+    x18 = x[, 18],
+    x19 = x[, 19],
+    x20 = x[, 20],
+    x21 = x[, 21],
+    x22 = x[, 22],
+    x23 = x[, 23],
+    x24 = x[, 24],
+    x25 = x[, 25],
+    x26 = x[, 26],
+    x27 = x[, 27],
+    x28 = x[, 28],
+    x29 = x[, 29],
+    x30 = x[, 30]
+  ) %>%
+  select(-x) %>% 
+  mutate(y = as.factor(y))
 ```
 
 ```{r}
-add_data <- function(plot){
-  plot + 
-}
-
-ggplot(data = examdata) +
-  geom_histogram(mapping = aes())
+newdata %>%
+  pivot_longer(where(is.numeric)) %>%
+  ggplot(aes(x = value, col = y, fill = y)) +
+  geom_density(alpha = 0.8) +
+  facet_wrap(~name, scales = "free") +
+  scale_color_brewer(palette = "Paired") +
+  scale_fill_brewer(palette = "Paired") +
+  theme_minimal()
 ```
 
+b) Run a 10-fold cross validated LASSO logistic (`family = "binomial"`) regression using the misclassification error as the criterion.
+
+```{r}
+model <- cv.glmnet(examdata$x, examdata$y, family = "binomial", type.measure = "class")
+```
+
+c) Make a prediction of the class labels at \lambda = 0.05, 0.01
+
+```{r}
+pred <- predict(model, newx = examdata$x, s = c(0.05, 0.01), type = "class")
+```
+
+d) create a plot that shows the values of \lambda. What is the optimal value and why?
+
+```{r}
+plot(model)
+model
+```
+
+The optimal value for \lambda is the 1se, \lambda = 0.04945, as it is a simpler model that the one used for lambda min and with similar predictive power.
