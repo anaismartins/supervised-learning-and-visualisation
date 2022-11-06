@@ -1,0 +1,44 @@
+---
+title: "Practice Exam"
+author: "1760068 Ana Martins"
+date: "November 2022"
+output: html_document
+---
+
+## Q1 Data Visualization
+a) For the following plot, name the aesthetics (that is, name the mapping of the variables to aesthetics), geoms, and scales. If applicable, name any facets, transformations, or special coordinate systems.
+
+Aesthetics:
+- `x` is mapped to `Hgt`
+- `y` is mapped to `Age`
+- `color` is mapped to `Diff`
+
+Geoms: `geom_bar()`
+
+Scales: Continuous
+
+Facets: None
+
+Transformations: Hgt -> mean(Hgt) - Hgt
+
+Coordinate System: Cartesian
+
+b) For the following plot, name the aesthetics (that is, name the mapping of variables to aesthetics), geoms, and scales. If applicable, name any facets, transformations, or special coordinate systems.
+
+Aesthetics:
+- `x` is mapped to `age`
+- `fill` is mapped to `area`
+- `alpha` is not mapped to anything, but it is set to lower than 1
+
+Geoms: `geom_density()`
+
+Scales: Continuous
+
+Facets: None
+
+Transformations: None
+
+Coordinate System: Cartesian
+
+## Q2 Give 3 suggestions for improvement of the following plot, and explain your rationale based on visualization principles.
+
