@@ -1,0 +1,39 @@
+---
+title: "Practical 1"
+author: "Ana Martins"
+date: "November 2022"
+output: html_document
+---
+
+13. **Sort the students dataset such that the students from programme A are on top of the data frame and within the programmes the highest grades come first.
+
+```{r}
+library(tidyverse)
+library(openxlsx)
+```
+
+```{r}
+students <-
+  read.xlsx("data/students.xlsx") %>% 
+  arrange(programme, -grade)
+students
+```
+
+15. **Use `mutate()` and `recode()` to change the codes in the programme column of the students dataset to their names. Store the result in a variable called `students_recoded`.
+
+```{r}
+students_recoded <-
+  students %>% 
+  mutate(programme = recode(students$programme, "A" = "Science", "B" = "Social Science"))
+```
+
+16. **Create a data processing pipeline that (a) loads the apps dataset, (b) parses the number of installs as 'Downloads' variable using `mutate` and `parse_number()`, (c) shows only apps with more than 500 000 000 downloads, (d) orders them by rating (best on top), and (e) shows only the relevant columns (you can choose which are relevant, but select at least the `Rating` and `Category` variables). Save the result under the name `popular_apps`.
+
+```{r}
+apps <- read_csv("data/googleplaystore.csv")
+```
+
+```{r}
+
+```
+
