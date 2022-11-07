@@ -1,0 +1,55 @@
+---
+title: "Towards Visualizing Data"
+author: "Ana Martins"
+date: "November 2022"
+output: html_document
+---
+
+1. **Name the aesthetics, geoms, scales and facets of the above visualization. Also name any statistical transformations or special coordinate systems.**
+
+Aesthetics
+- x is mapped to Hits
+- y is mapped to Home runs
+
+Geoms:
+- points
+- countour lines
+
+Scales:
+- x is continous
+- y is continuous
+
+Facets:
+- none
+
+Statistical Transformations:
+- none
+
+Special Coordinate System:
+- non (just the cartesian)
+
+2. `**Run the code below to generate data. There will be three vectors in your environment. Put them in a data frame for entering it in a `ggplot()` call using either the `data.frame()` or the `tibble()` function. Give informative names and make sure the types are correct (use the `as.<type>()` functions). Name the result `gg_students``.**
+
+```{r}
+set.seed(45)
+student_grade <- rnorm(32, 7)
+student_number <- round(runif(32) * 2e6 + 5e6)
+programme <- sample(c("Science", "Social Science"), 32, replace = TRUE)
+```
+
+```{r}
+gg_students <-
+  tibble(student_number = as.numeric(student_number), programme = as.factor(programme), student_grade = as.numeric(student_grade))
+```
+
+3. **Plot the first `homeruns_plot` again, but map the `Hits` to the y-axis and the `HmRun` to the x-axis instead.
+
+```{r}
+Hitters %>% 
+  ggplot(aes(x = HmRun, y = Hits)) +
+  geom_point() +
+  labs(x = "Home Runs", y = "Hits") +
+  theme_minimal()
+```
+
+4. **Recreate the same plot once more, but now also map the variable
